@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website with Loading Progress</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200..1000&display=swap');
+
+body { background-color: #000; color: #fff; font-family: "Nunito", sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; }
+
+.loader { font-size: 45px; text-align: center; text-shadow: 0 0 5px #fd0; }
+.progress-bar { width: 100%; max-width: 300px; height: 20px; background-color: #444; border-radius: 10px; border: 1px solid #ffc; overflow: hidden; margin-top: 2px; }
+.progress { height: 100%; width: 0; background-color: red; transition: width 0.1s ease-in-out; }
+  </style>
+</head>
+<body>
+  <div class="loader"><span id="countdown">0%</span></div>
+  <div class="progress-bar">
+    <div class="progress" id="progress"></div>
+  </div>
+
+  <script>
+    let progress = 0;
+    const countdownElement = document.getElementById('countdown');
+    const progressElement = document.getElementById('progress');
+
+    const interval = setInterval(function () {
+      progress += 1;
+      countdownElement.textContent = progress + "%";
+      progressElement.style.width = progress + "%";
+
+      if (progress >= 100) {
+        clearInterval(interval);
+        window.location.href = 'https://www.kinbasari.my.id/coretan/rahasia-cepat-paham-saat-belajar.html';
+      }
+    }, 100);
+  </script>
+</body>
+</html>
