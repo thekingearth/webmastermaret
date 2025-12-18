@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Kuis Pilihan Ganda</title>
+
+<style>
+@import url(https://fonts.googleapis.com/css2?family=Happy+Monkey&family=Kavoon&family=Miltonian+Tattoo&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Rum+Raisin&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap);
+
+body {
+    font-family: "Nunito", serif;
+    background: #0d0d0d;
+    color: #fff;
+    display: fixed;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.wrapper {
+    width: 95vw;
+}
+
+/* JUDUL & DESKRIPSI */
+.header {
+    margin-bottom: 15px;
+}
+
+.header h2 {
+  font-family: "Caveat", serif;
+    color: #fd2;
+    margin: 0 0 8px 0;
+    text-align: center;
+}
+.header h3 {
+   text-align: center;
+}
+
+.header p {
+    font-size: 14px;
+    text-align: justify;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* BOX SOAL */
+.box {
+    color: #000;
+    background: #fa0;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.choice {
+    background: #f90;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 50px;
+    border: 2px solid #000;
+    cursor: pointer;
+}
+
+.choice:hover {
+    background: #f6b;
+}
+
+.choice span {
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+/* POPUP */
+.popup {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-box {
+    color: #000;
+    background: #fd0;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    width: 300px;
+}
+
+.popup-box button {
+    color: #fff;
+    margin-top: 15px;
+    padding: 10px;
+    width: 50%;
+    border: 2px solid #000;
+    border-radius: 50px;
+    background: #f10;
+    cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<br>
+<br>
+<br>
+<div class="wrapper">
+
+    <!-- JUDUL & DESKRIPSI (DI LUAR BOX) -->
+    <div class="header">
+        <h2>Test Seberapa Jenius Kamu Dalam Pengetahuan Dasar</h2>
+        <p>
+            Kuis ini dibuat untuk menguji cara berpikir, ketelitian, dan pemahaman
+            dasar terhadap konsep sederhana. Jawablah dengan fokus, jangan terburu-buru,
+            dan gunakan logika terbaik sebelum memilih salah satu jawaban yang tersedia.
+        </p>
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <!-- BOX PERTANYAAN -->
+    <div class="box">
+        <h3 id="question"></h3>
+        <div id="choices"></div>
+    </div>
+    <br>
+    <br>
+    <br>
+    
+    <div class="header">
+      <h3>
+        <span class="answera"> 1.FAKUP</span> &nbsp; &nbsp; 
+        <span class="answerb">2.QVBGL</span> &nbsp; &nbsp; 
+        <span class="answerc">3.MCRHW</span>
+      <br>
+      <br>
+        <span class="answerd">4.XDINS</span> &nbsp; &nbsp; &nbsp; &nbsp; 
+        <span class="answere">5.JOETY</span>
+        </h3>
+    </div>
+
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+    <div class="popup-box">
+        <p>Jawabanmu salah coba berfikir lebih baik</p>
+        <button onclick="nextQuestion()">Coba Lagi</button>
+    </div>
+</div>
+
+
+<script>
+const questions = [
+    {
+        q: "Sesuatu yang terasa nyata di kepala, bisa membuat emosi bereaksi, tapi tidak pernah benar-benar terjadi di dunia nyata. Apakah itu?",
+        answers: {
+            a: "Ingatan masa lalu",
+            b: "Harapan yang tertunda",
+            c: "Rencana yang belum diwujudkan",
+            d: "Khayalan",
+            e: "Persepsi sementara"
+        },
+        correct: "d"
+    },
+    {
+        q: "Tidak terlihat, tidak bisa disentuh, sering membuat seseorang bertahan di tengah kesulitan, dan kadang justru paling kuat saat keadaan terasa paling gelap, apakah itu?",
+        answers: {
+            a: "Keyakinan",
+            b: "Keinginan",
+            c: "Optimisme",
+            d: "Motivasi",
+            e: "Harapan"
+        },
+        correct: "e"
+    },
+    {
+        q: "Dalam situasi ketika informasi saling bertentangan, emosi ikut mempengaruhi penilaian, dan keputusan harus diambil tanpa kepastian penuh, kemampuan apa yang paling dibutuhkan agar kesimpulan tidak menyesatkan??",
+        answers: {
+            a: "Berfikir logis",
+            b: "Berfikir cepat",
+            c: "Berfikir positif",
+            d: "Berfikir kritis",
+            e: "Berfikir intuitif"
+        },
+        correct: "d"
+    },
+    {
+        q: "Apa hasil yang paling sering muncul ketika seseorang terus menghindari proses belajar dari kesalahan, tetapi tetap berharap pada perubahan besar?",
+        answers: {
+            a: "Kegagalan",
+            b: "Kedewasaan berpikir",
+            c: "Kemajuan bertahap",
+            d: "Keberuntungan tertunda",
+            e: "Kesempatan kedua"
+        },
+        correct: "a"
+    },
+    {
+        q: "Ketika tubuh diam terlalu lama, kesadaran tidak berpindah tempat, dan aliran yang seharusnya mengalir tertahan tanpa luka maupun sebab yang terlihat, pengalaman apa yang muncul sebagai pengingat bahwa keberadaan selalu membutuhkan gerak?",
+        answers: {
+            a: "Kesemutan",
+            b: "Rasa hampa akibat stagnasi eksistensial",
+            c: "Ketegangan saraf karena konflik batin",
+            d: "Mati rasa sementara dari kesadaran tubuh",
+            e: "Gangguan persepsi akibat tekanan waktu"
+        },
+        correct: "a"
+    },
+    {
+        q: "Gagasan tentang kemajuan sering dipuja sebagai jalan menuju pembebasan manusia, tetapi dalam realitas sosial tertentu justru melahirkan jarak, ketimpangan, dan keterasingan. Fenomena apakah yang dimaksud?",
+        answers: {
+            a: "Globalisasi pengetahuan",
+            b: "Kesenjangan teknologi",
+            c: "Generalisasi inovasi",
+            d: "Gradasi kemajuan digital",
+            e: "Gestur dominasi modernitas"
+        },
+        correct: "b"
+    },
+    {
+        q: "Refleksi rasional tentang realitas waktu dan sebab akibat, relasi seperti apa yang menggambarkan perubahan yang bergerak bertahap, konsisten, dan mengikuti satu arah tanpa lompatan makna?",
+        answers: {
+            a: "Dialektis",
+            b: "Siklis",
+            c: "Linear",
+            d: "Fragmentaris",
+            e: "Paradoksal"
+        },
+        correct: "c"
+    },
+    {
+        q: "Namun, ketika nalar menatap harapan yang tampak nyata di kejauhan, tetapi selalu menjauh saat didekati, apakah hakikat dari kenyataan yang hanya hidup dalam persepsi dan bukan dalam keberadaan sejatinya itu?",
+        answers: {
+            a: "Paradoks eksistensial",
+            b: "Ilusi kesadaran",
+            c: "Proyeksi kehendak batin",
+            d: "Fatamorgana",
+            e: "Realitas semu transenden"
+        },
+        correct: "d"
+    },
+    {
+        q: "Lewat lensa rasionalitas dan kesadaran akan kemungkinan masa depan, suatu tindakan dinilai bukan dari hasil kini, melainkan dari daya antisipasinya terhadap perubahan yang belum terjadi. Sikap tersebut paling tepat disebut?",
+        answers: {
+            a: "Retrospektif",
+            b: "Prospektif",
+            c: "Spekulatif",
+            d: "Normatif",
+            e: "Deterministik"
+        },
+        correct: "b"
+    },
+    {
+        q: "When pikiran terus berlari mengejar makna, sementara tubuh menolak ketegangan yang berlebihan, kondisi batin apa yang memungkinkan kesadaran kembali hadir tanpa perlawanan terhadap realitas?",
+        answers: {
+            a: "Kontemplasi eksistensial",
+            b: "Eskapisme psikologis",
+            c: "Rileksasi",
+            d: "Disosiasi kesadaran",
+            e: "Sublimasi afektif"
+        },
+        correct: "c"
+    },
+    {
+        q: "Tatkala realitas tidak lagi tunduk pada kepastian mutlak, ketika pengamat ikut mengubah yang diamati, dan kebenaran hadir sebagai peluang, cabang ilmu apakah yang berusaha memahami hakikat terdalam alam semesta?",
+        answers: {
+            a: "Metafisika deterministik",
+            b: "Ontologi klasik",
+            c: "Kosmologi spekulatif",
+            d: "Epistemologi rasional",
+            e: "Fisika quantum"
+        },
+        correct: "e"
+    },
+    {
+        q: "Ia yang mempertanyakan akar kebenaran, menolak kenyamanan asumsi mapan, dan berani menggugat fondasi makna sebelum menerima kesimpulan, pendekatan berpikir apakah yang sedang dijalankan?",
+        answers: {
+            a: "Hermeneutika reflektif",
+            b: "Rasionalisme eksistensial",
+            c: "Skeptisisme metodologis",
+            d: "Filosofi radikal",
+            e: "Dialektika kritis postmodern"
+        },
+        correct: "d"
+    }
+];
+
+let used = [];
+let current = null;
+
+function nextQuestion() {
+    document.getElementById("popup").style.display = "none";
+
+    if (used.length === questions.length) used = [];
+
+    do {
+        current = questions[Math.floor(Math.random() * questions.length)];
+    } while (used.includes(current));
+
+    used.push(current);
+
+    document.getElementById("question").innerText = current.q;
+
+    const choices = document.getElementById("choices");
+    choices.innerHTML = "";
+
+    // URUT SESUAI abcd e (TIDAK DIAK)
+    ["a","b","c","d","e"].forEach(key => {
+        const div = document.createElement("div");
+        div.className = "choice";
+        div.innerHTML = `<span>${key}.</span>${current.answers[key]}`;
+        div.onclick = () => checkAnswer(key);
+        choices.appendChild(div);
+    });
+}
+
+function checkAnswer(key) {
+    if (key === current.correct) {
+        window.location.href = "https://www.tintapenaku.com";
+    } else {
+        document.getElementById("popup").style.display = "flex";
+    }
+}
+
+nextQuestion();
+</script>
+
+</body>
+</html>
